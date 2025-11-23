@@ -168,7 +168,34 @@ element.querySelector('#selectme')!.style.color = 'red'; // Remove
 (element.querySelector('#selectme') as HTMLElement).style.color = 'red'; // Add
 ```
 
-### Common examples
+### List operations
+
+Methods like `Element::querySelectorAll` or `Element::children` return values no longer implement `List` interface.
+
+For immutable operations you can use `JSImmutableListWrapper`:
+
+```dart
+for (final anchor in document.querySelectorAll('a'))) {} // Remove
+for (final anchor in JSImmutableListWrapper(document.querySelectorAll('img'))) {} //Add
+
+for (final child in parent.children) {} // Remove
+for (final child in JSImmutableListWrapper(parent.children)) {} // Add
+```
+
+You need to add implementation for simple mutable operations like `removeWhere`:
+
+```dart
+parent.children.removeWhere(test); // Remove
+
+for (var i = parent.children.length - 1; i >= 0; --i) {
+  if (test(parent.children.item(i)!)) {
+    parent.children.item(i)!.remove();
+  }
+}  // Add
+
+```
+
+### Common DOM manipulation examples
 
 ```dart
 element.querySelector('#selector')?.innerHtml = 'something'; // Remove
@@ -176,7 +203,14 @@ element.querySelector('#selector')?.innerHTML = 'something'.toJS; // Add
 
 element.classes.add('class'); // Remove
 element.classList.add('class'); // Add
+
+element.appendHtml(html); // Remove
+element.insertAdjacentHTML('beforeend', html.toJS); // Add
 ```
+
+{% comment %}
+TODO: add more examples
+{% endcomment -%}
 
 ### Type tests
 
