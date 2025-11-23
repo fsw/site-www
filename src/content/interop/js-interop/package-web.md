@@ -156,6 +156,25 @@ Node append(Node node) native;
 `native` is an internal keyword that means the same as `external` in this
 context.
 
+### Element and HTMLElement
+
+`Element` is now `HTMLElement` but `Element` class also exists as base class for HTMLElement, SVGElement etc. See [msdn element].
+`querySelector` returns `Element` as it can query in SVG as well so cast is required to access `HTMLElement` methods.
+
+```dart
+element.querySelector('#selectme')!.className = 'test'; // valid in both
+
+element.querySelector('#selectme')!.style.color = 'red'; // Remove
+(element.querySelector('#selectme') as HTMLElement).style.color = 'red'; // Add
+```
+
+### Common examples
+
+```dart
+element.querySelector('.class')?.innerHtml = 'something'; // Remove
+element.querySelector('.class')?.innerHTML = 'something'.toJS; // Add
+```
+
 ### Type tests
 
 It's common for code that uses `dart:html` to utilize runtime checks like `is`.
@@ -175,6 +194,9 @@ section of the JS types page covers alternatives in detail.
 ```dart
 obj is Window; // Remove
 obj.instanceOfString('Window'); // Add
+
+element is InputElement; // Remove
+element.isA<HTMLInputElement>(); // Add
 ```
 
 ### Type signatures
@@ -325,3 +347,4 @@ Do we have any other package migrations to show off here?
 [restricts]: /interop/js-interop/js-types#requirements-on-external-declarations-and-function-tojs
 [#54507]: {{site.repo.dart.sdk}}/issues/54507
 [mocking tutorial]: /interop/js-interop/mock
+[msdn element]: https://developer.mozilla.org/en-US/docs/Web/API/Element
