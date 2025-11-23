@@ -157,9 +157,11 @@ Node append(Node node) native;
 context.
 
 ### Element and HTMLElement
-
-`Element` is now `HTMLElement` but `Element` class also exists as base class for HTMLElement, SVGElement etc. See [msdn element].
-`querySelector` returns `Element` as it can query in SVG as well so cast is required to access `HTMLElement` methods.
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+`Element` is now `HTMLElement` but `Element` class also exists as base class for
+HTMLElement, SVGElement etc. See [msdn element].
+`querySelector` returns `Element` as it can query in SVG as well so cast is
+required to access `HTMLElement` methods.
 
 ```dart
 element.querySelector('#selectme')!.className = 'test'; // valid in both
@@ -170,13 +172,15 @@ element.querySelector('#selectme')!.style.color = 'red'; // Remove
 
 ### List operations
 
-Methods like `Element::querySelectorAll` or `Element::children` return values no longer implement `List` interface.
+Methods like `Element::querySelectorAll` or `Element::children` return values no
+longer implement `List` interface.
 
 For immutable operations you can use `JSImmutableListWrapper`:
 
 ```dart
-for (final anchor in document.querySelectorAll('a'))) {} // Remove
-for (final anchor in JSImmutableListWrapper(document.querySelectorAll('img'))) {} //Add
+final anchors = document.querySelectorAll('a');
+for (final anchor in anchors)) {} // Remove
+for (final anchor in JSImmutableListWrapper(anchors)) {} //Add
 
 for (final child in parent.children) {} // Remove
 for (final child in JSImmutableListWrapper(parent.children)) {} // Add
