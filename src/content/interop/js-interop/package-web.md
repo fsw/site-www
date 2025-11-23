@@ -157,7 +157,7 @@ Node append(Node node) native;
 context.
 
 ### Element and HTMLElement
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
+
 `Element` is now `HTMLElement` but `Element` class also exists as base class for
 HTMLElement, SVGElement etc. See [msdn element].
 `querySelector` returns `Element` as it can query in SVG as well so cast is
