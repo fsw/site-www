@@ -175,7 +175,7 @@ element.querySelector('#selector')?.innerHtml = 'something'; // Remove
 element.querySelector('#selector')?.innerHTML = 'something'.toJS; // Add
 
 element.classes.add('class'); // Remove
-element.classNames.add('class'); // Add
+element.classList.add('class'); // Add
 ```
 
 ### Type tests
